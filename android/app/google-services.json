@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "157958610312",
+    "project_id": "mashwarak-9288a",
+    "storage_bucket": "mashwarak-9288a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:157958610312:android:829dccad3700223f952e3d",
+        "android_client_info": {
+          "package_name": "com.example.tokgo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAf8wcR_aw7FQ-pMwB2M5ag6TT9UHY_scg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
