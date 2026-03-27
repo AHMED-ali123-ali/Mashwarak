@@ -4,7 +4,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import '../../../../core/utils/firestore_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'meeting_screen.dart';
 
 class TripScreen extends StatefulWidget {
@@ -17,7 +17,6 @@ class TripScreen extends StatefulWidget {
 class _TripScreenState extends State<TripScreen> {
   final TextEditingController startController = TextEditingController();
   final TextEditingController endController = TextEditingController();
-  final FirestoreService _firestoreService = FirestoreService();
   LatLng? startLatLng;
   LatLng? endLatLng;
   bool _isUpdating = false;
@@ -175,16 +174,17 @@ class _TripScreenState extends State<TripScreen> {
                       ? () async {
                           setState(() => _isUpdating = true);
                           try {
-                            // تحديث بيانات الموقع في Firestore
-                            await _firestoreService.updateTripLocation(
-                              tripId: widget.tripId,
-                              startPlace: startController.text,
-                              endPlace: endController.text,
-                              startLat: startLatLng!.latitude,
-                              startLng: startLatLng!.longitude,
-                              endLat: endLatLng!.latitude,
-                              endLng: endLatLng!.longitude,
-                            );
+                            await FirebaseFirestore.instance
+                                .collection('trips')
+                                .doc(widget.tripId)
+                                .set({
+                              'startPlace': startController.text,
+                              'endPlace': endController.text,
+                              'startLat': startLatLng!.latitude,
+                              'startLng': startLatLng!.longitude,
+                              'endLat': endLatLng!.latitude,
+                              'endLng': endLatLng!.longitude,
+                            }, SetOptions(merge: true));
 
                             if (mounted) {
                               Navigator.push(

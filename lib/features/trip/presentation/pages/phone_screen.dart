@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import '../../../../core/utils/firestore_service.dart';
+import 'package:tokgo/features/trip/presentation/pages/otp.dart';
 import 'trip_screen.dart';
 
 class PhoneScreen extends StatefulWidget {
@@ -13,7 +13,6 @@ class PhoneScreen extends StatefulWidget {
 class _PhoneScreenState extends State<PhoneScreen> {
   final TextEditingController _phoneController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
-  final FirestoreService _firestoreService = FirestoreService();
   late Timer _timer;
   double _scrollPosition = 0;
   bool _isSubmitting = false;
@@ -247,26 +246,16 @@ class _PhoneScreenState extends State<PhoneScreen> {
                                     color: Colors.red,
                                   );
                                 } else {
-                                  setState(() => _isSubmitting = true);
-                                  try {
-                                    // تسجيل الرقم والحصول على ID الرحلة
-                                    String tripId = await _firestoreService
-                                        .startTrip(phone);
-                                    if (mounted) {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => TripScreen(
-                                                tripId: tripId)),
-                                      );
-                                    }
-                                  } catch (e) {
-                                    showCustomSnackBar(
-                                        "خطأ في الاتصال بالسيرفر");
-                                  } finally {
-                                    if (mounted) {
-                                      setState(() => _isSubmitting = false);
-                                    }
+                                  if (mounted) {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => OTPScreen(tripId: phone, phone: phone,),
+                                      ),
+                                    );
+                                  }
+                                  if (mounted) {
+                                    setState(() => _isSubmitting = false);
                                   }
                                 }
                               },

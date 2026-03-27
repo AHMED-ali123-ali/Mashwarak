@@ -31,7 +31,6 @@ class DriversScreen extends StatefulWidget {
 
 class _DriversScreenState extends State<DriversScreen> {
   bool isLoading = true;
-  bool _isSelecting = false;
   final FirestoreService _firestoreService = FirestoreService();
 
   final List<Map<String, dynamic>> drivers = [
@@ -40,28 +39,32 @@ class _DriversScreenState extends State<DriversScreen> {
       "phone": "01290123456",
       "price": "20",
       "rating": "4.9",
-      "img": "images/d1.jpg"
+      "img": "images/d1.jpg",
+      "isSelecting": false,
     },
     {
       "name": "محمود سعد",
       "phone": "01234567890",
       "price": "25",
       "rating": "4.8",
-      "img": "images/d2.webp"
+      "img": "images/d2.webp",
+      "isSelecting": false,
     },
     {
       "name": "سيد جابر",
       "phone": "01122334455",
       "price": "15",
       "rating": "4.6",
-      "img": "images/d3.webp"
+      "img": "images/d3.webp",
+      "isSelecting": false,
     },
     {
       "name": "علي حسن",
       "phone": "01099887766",
       "price": "30",
       "rating": "4.7",
-      "img": "images/d4.webp"
+      "img": "images/d4.webp",
+      "isSelecting": false,
     },
   ];
 
@@ -119,12 +122,12 @@ class _DriversScreenState extends State<DriversScreen> {
       itemCount: drivers.length,
       itemBuilder: (context, index) {
         final driver = drivers[index];
-        return _buildDriverCard(driver);
+        return _buildDriverCard(driver, index);
       },
     );
   }
 
-  Widget _buildDriverCard(Map<String, dynamic> driver) {
+  Widget _buildDriverCard(Map<String, dynamic> driver, int index) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
       padding: const EdgeInsets.all(20),
@@ -202,10 +205,12 @@ class _DriversScreenState extends State<DriversScreen> {
             width: double.infinity,
             height: 50,
             child: ElevatedButton(
-              onPressed: _isSelecting
+              onPressed: (driver['isSelecting'] ?? false)
                   ? null
                   : () async {
-                      setState(() => _isSelecting = true);
+                      setState(() {
+                        drivers[index]['isSelecting'] = true;
+                      });
                       try {
                         // تحديث بيانات السائق في Firestore
                         await _firestoreService.selectDriver(
@@ -237,7 +242,11 @@ class _DriversScreenState extends State<DriversScreen> {
                       } catch (e) {
                         debugPrint("Error selecting driver: $e");
                       } finally {
-                        if (mounted) setState(() => _isSelecting = false);
+                        if (mounted) {
+                          setState(() {
+                            drivers[index]['isSelecting'] = false;
+                          });
+                        }
                       }
                     },
               style: ElevatedButton.styleFrom(
@@ -245,7 +254,7 @@ class _DriversScreenState extends State<DriversScreen> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18)),
               ),
-              child: _isSelecting
+              child: (driver['isSelecting'] ?? false)
                   ? const CircularProgressIndicator(color: Colors.white)
                   : const Text(
                       "تأكيد",

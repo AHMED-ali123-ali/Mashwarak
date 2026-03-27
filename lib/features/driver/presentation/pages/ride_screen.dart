@@ -171,33 +171,51 @@ class _RideScreenState extends State<RideScreen> {
                 child: Row(
                   children: [
                     CircleAvatar(
-                      radius: 40,
+                      radius: 45,
                       backgroundImage: AssetImage(widget.driverImage),
                     ),
                     const SizedBox(width: 15),
                     Expanded(
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Center(
-                            child: Text(widget.driverName,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 25)),
+                          Text(
+                            widget.driverName,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 25,
+                            ),
+                            textAlign: TextAlign.center,
                           ),
-                          const SizedBox(height: 13),
-                          Center(
-                              child: Text(
+                          const SizedBox(height: 8),
+                          Text(
                             widget.driverPhone,
                             style: const TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.bold),
-                          )),
-                          const SizedBox(height: 13),
-                          Center(
-                            child: Text("السعر: ${widget.driverPrice} ج",
-                                style: const TextStyle(
-                                    fontSize: 30,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.red)),
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            "السعر: ${widget.driverPrice} ج",
+                            style: const TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.red,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            'زمن الرحله : ١٠ دقائق',
+                            style: const TextStyle(
+                              fontSize: 26,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                            textAlign: TextAlign.center,
                           ),
                         ],
                       ),
