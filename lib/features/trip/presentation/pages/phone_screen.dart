@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:tokgo/features/trip/presentation/pages/chat.dart';
 import 'package:tokgo/features/trip/presentation/pages/otp.dart';
 import 'trip_screen.dart';
 
@@ -271,12 +272,29 @@ class _PhoneScreenState extends State<PhoneScreen> {
                               ),
                       ),
                     ),
+
                   ],
                 ),
               ),
             ),
           ),
         ],
+      ),
+      floatingActionButton: Container(
+        height: 70,
+        width: 90,
+        child: FloatingActionButton(
+          backgroundColor: Colors.orangeAccent,
+          child: const Icon(Icons.mark_unread_chat_alt, color: Colors.black,size: 30,),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const Chat(),
+              ),
+            );
+          },
+        ),
       ),
     );
   }
