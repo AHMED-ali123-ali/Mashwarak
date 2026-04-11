@@ -2,8 +2,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:tokgo/features/trip/presentation/pages/chat.dart';
 import 'package:tokgo/features/trip/presentation/pages/otp.dart';
-import 'trip_screen.dart';
-
 class PhoneScreen extends StatefulWidget {
   const PhoneScreen({super.key});
 
@@ -78,14 +76,14 @@ class _PhoneScreenState extends State<PhoneScreen> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(Icons.phone, color: Colors.black, size: 28),
+              const Icon(Icons.phone, color: Colors.white, size: 28),
               const SizedBox(width: 10),
               Text(
                 message,
                 style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  color: Colors.white,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -165,7 +163,7 @@ class _PhoneScreenState extends State<PhoneScreen> {
                           BoxShadow(
                             color: Colors.black.withOpacity(0.1),
                             blurRadius: 10,
-                            offset: const Offset(0, 5),
+                            offset:  Offset(0, 5),
                           ),
                         ],
                       ),
@@ -215,7 +213,7 @@ class _PhoneScreenState extends State<PhoneScreen> {
                               fillColor: Colors.grey.shade100,
                               prefixIcon: const Icon(
                                 Icons.phone,
-                                color: Colors.black87,
+                                color: Colors.black,
                                 size: 30,
                               ),
                             ),
@@ -240,7 +238,7 @@ class _PhoneScreenState extends State<PhoneScreen> {
                                 String phone = _phoneController.text.trim();
                                 if (phone.isEmpty) {
                                   showCustomSnackBar("من فضلك أدخل رقم الهاتف",
-                                      color: Colors.orange);
+                                      color: Colors.red);
                                 } else if (!validatePhone(phone)) {
                                   showCustomSnackBar(
                                     "من فضلك ادخل رقم صحيح",
@@ -282,10 +280,17 @@ class _PhoneScreenState extends State<PhoneScreen> {
       ),
       floatingActionButton: Container(
         height: 70,
-        width: 90,
+        width: 180,
         child: FloatingActionButton(
           backgroundColor: Colors.orangeAccent,
-          child: const Icon(Icons.mark_unread_chat_alt, color: Colors.black,size: 30,),
+          child: const Text(
+            "خدمة العملاء",
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 25,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           onPressed: () {
             Navigator.push(
               context,
